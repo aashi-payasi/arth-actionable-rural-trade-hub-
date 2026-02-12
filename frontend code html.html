@@ -1,0 +1,1897 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARTH - Actionable Rural Trade Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-green: #2d5a27;
+            --secondary-green: #4a7c3a;
+            --light-green: #e8f5e9;
+            --accent-green: #81c784;
+            --dark-green: #1b3c16;
+            --text-dark: #333333;
+            --text-light: #ffffff;
+        }
+
+        body {
+            background-color: #f9fff8;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, var(--primary-green), var(--secondary-green));
+            color: var(--text-light);
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            position: relative;
+            width: 50px;
+            height: 50px;
+        }
+
+        .leaf-logo {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+        }
+
+        .leaf-left {
+            left: 0;
+            top: 5px;
+            transform: rotate(-45deg);
+        }
+
+        .leaf-right {
+            right: 0;
+            top: 5px;
+            transform: rotate(45deg);
+        }
+
+        .leaf-stem {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 20px;
+            background-color: var(--light-green);
+            border-radius: 2px;
+        }
+
+        .logo-text h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .full-form {
+            font-style: italic;
+            font-size: 0.8rem;
+        }
+
+        .login-btn {
+            background-color: var(--accent-green);
+            color: var(--dark-green);
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .login-btn:hover {
+            background-color: #a5d6a7;
+            transform: translateY(-2px);
+        }
+
+        /* Introduction Section */
+        .introduction {
+            padding: 60px 0;
+            background-color: var(--light-green);
+            border-bottom: 3px solid var(--accent-green);
+        }
+
+        .intro-content {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .welcome-message {
+            margin-bottom: 40px;
+        }
+
+        .welcome-message h2 {
+            font-size: 2.8rem;
+            color: var(--primary-green);
+            margin-bottom: 15px;
+        }
+
+        .welcome-hindi {
+            font-size: 2.2rem;
+            color: var(--secondary-green);
+            margin-bottom: 30px;
+        }
+
+        .intro-text {
+            font-size: 1.2rem;
+            color: var(--dark-green);
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+
+        /* Photo Gallery */
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .photo-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            height: 250px;
+            position: relative;
+        }
+
+        .photo-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(45, 90, 39, 0.9);
+            color: white;
+            padding: 15px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .photo-item:hover .photo-overlay {
+            transform: translateY(0);
+        }
+
+        .photo-overlay h3 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .photo-overlay p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        /* Login Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            background: linear-gradient(to right, var(--primary-green), var(--secondary-green));
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .modal-header h2 {
+            font-size: 1.8rem;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--primary-green);
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-green);
+            outline: none;
+        }
+
+        .form-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-green);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--dark-green);
+        }
+
+        .btn-secondary {
+            background-color: #f0f0f0;
+            color: var(--text-dark);
+        }
+
+        .btn-secondary:hover {
+            background-color: #e0e0e0;
+        }
+
+        .language-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+        }
+
+        .language-option {
+            padding: 10px 15px;
+            background-color: #f0f0f0;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .language-option:hover {
+            background-color: #e0e0e0;
+        }
+
+        .language-option.selected {
+            background-color: var(--accent-green);
+            color: var(--dark-green);
+            font-weight: 600;
+        }
+
+        .crop-selection {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .crop-option {
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .crop-option:hover {
+            border-color: var(--accent-green);
+        }
+
+        .crop-option.selected {
+            border-color: var(--primary-green);
+            background-color: var(--light-green);
+        }
+
+        .crop-icon {
+            font-size: 2rem;
+            color: var(--secondary-green);
+            margin-bottom: 10px;
+        }
+
+        /* Quantity Selection */
+        .quantity-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .unit-options {
+            display: flex;
+            gap: 10px;
+        }
+
+        .unit-option {
+            flex: 1;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .unit-option:hover {
+            background-color: #e0e0e0;
+        }
+
+        .unit-option.selected {
+            background-color: var(--accent-green);
+            color: var(--dark-green);
+            font-weight: 600;
+        }
+
+        /* Results Section */
+        .results {
+            padding: 60px 0;
+            display: none;
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .results-header h2 {
+            font-size: 2.2rem;
+            color: var(--primary-green);
+            margin-bottom: 10px;
+        }
+
+        .mandi-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .mandi-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .mandi-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .mandi-card.best {
+            border: 3px solid var(--accent-green);
+            position: relative;
+        }
+
+        .best-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--accent-green);
+            color: var(--dark-green);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .mandi-header {
+            background: linear-gradient(to right, var(--primary-green), var(--secondary-green));
+            color: white;
+            padding: 20px;
+        }
+
+        .mandi-body {
+            padding: 25px;
+        }
+
+        .mandi-info {
+            margin-bottom: 20px;
+        }
+
+        .mandi-info-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .profit {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            text-align: center;
+            padding: 15px;
+            background-color: var(--light-green);
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .distance {
+            color: var(--secondary-green);
+            font-weight: 600;
+        }
+
+        /* Rating Section */
+        .rating-section {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            margin: 40px auto;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .rating-title {
+            color: var(--primary-green);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .rating-stars {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .rating-star {
+            font-size: 2.5rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .rating-star:hover,
+        .rating-star.active {
+            color: #ffc107;
+        }
+
+        .rating-value {
+            font-size: 1.2rem;
+            color: var(--primary-green);
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        /* Contact Form Section */
+        .contact-form-section {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            margin: 40px auto;
+            max-width: 600px;
+        }
+
+        .contact-form-title {
+            color: var(--primary-green);
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+
+        .contact-form textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Thank You Section */
+        .thankyou-section {
+            padding: 80px 0;
+            display: none;
+            background: linear-gradient(135deg, var(--light-green) 0%, #ffffff 100%);
+            min-height: 80vh;
+        }
+
+        .thankyou-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            background-color: white;
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .thankyou-icon {
+            font-size: 5rem;
+            color: var(--accent-green);
+            margin-bottom: 30px;
+        }
+
+        .thankyou-title {
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .thankyou-subtitle {
+            font-size: 1.8rem;
+            color: var(--secondary-green);
+            margin-bottom: 30px;
+        }
+
+        .thankyou-message {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        .contact-info {
+            background-color: var(--light-green);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+
+        .contact-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .contact-item {
+            text-align: center;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-icon {
+            font-size: 1.8rem;
+            color: var(--secondary-green);
+            margin-bottom: 10px;
+        }
+
+        .contact-label {
+            font-size: 1.1rem;
+            color: var(--primary-green);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .phone-link {
+            font-size: 1.2rem;
+            color: var(--secondary-green);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .phone-link:hover {
+            color: var(--dark-green);
+        }
+
+        .contact-timing {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .email-link {
+            font-size: 1.3rem;
+            color: var(--secondary-green);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .email-link:hover {
+            color: var(--dark-green);
+        }
+
+        .email-link i {
+            font-size: 1.5rem;
+        }
+
+        .thankyou-logo {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .thankyou-logo-icon {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+        }
+
+        .thankyou-brand {
+            font-size: 1.8rem;
+            color: var(--primary-green);
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .thankyou-tagline {
+            font-size: 1.1rem;
+            color: var(--secondary-green);
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-green);
+            color: white;
+            padding: 40px 0 20px;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--accent-green);
+        }
+
+        .copyright {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            .welcome-message h2 {
+                font-size: 2.2rem;
+            }
+            
+            .welcome-hindi {
+                font-size: 1.8rem;
+            }
+            
+            .crop-selection {
+                grid-template-columns: 1fr;
+            }
+
+            .language-options {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            }
+
+            .thankyou-title {
+                font-size: 2rem;
+            }
+
+            .thankyou-subtitle {
+                font-size: 1.5rem;
+            }
+
+            .thankyou-content {
+                padding: 40px 25px;
+            }
+
+            .contact-details {
+                grid-template-columns: 1fr;
+            }
+
+            .photo-item {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<script>
+  fetch("http://localhost:5000/api/prices")
+    .then(response => response.json())
+    .then(data => {
+
+      const table = document.getElementById("dataTable");
+
+      data.records.forEach(item => {
+        const row = `
+          <tr>
+            <td>${item.state}</td>
+            <td>${item.commodity}</td>
+            <td>${item.modal_price}</td>
+          </tr>
+        `;
+        table.innerHTML += row;
+      });
+
+    })
+    .catch(error => {
+      console.log("Error:", error);
+    });
+</script>
+<body>
+    <h2>Market Prices</h2>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>State</th>
+      <th>Commodity</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody id="dataTable"></tbody>
+</table>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <div class="logo-icon">
+                    <div class="leaf-stem"></div>
+                    <div class="leaf-logo leaf-left">
+                        <svg viewBox="0 0 100 100">
+                            <path d="M50,20 C30,20 20,40 20,60 C20,80 40,90 50,80 C60,90 80,80 80,60 C80,40 70,20 50,20 Z" 
+                                  fill="#81c784" stroke="#2d5a27" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <div class="leaf-logo leaf-right">
+                        <svg viewBox="0 0 100 100">
+                            <path d="M50,20 C70,20 80,40 80,60 C80,80 60,90 50,80 C40,90 20,80 20,60 C20,40 30,20 50,20 Z" 
+                                  fill="#81c784" stroke="#2d5a27" stroke-width="2"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="logo-text">
+                    <h1>ARTH</h1>
+                    <p class="full-form" id="fullForm">Actionable Rural Trade Hub</p>
+                </div>
+            </div>
+            <button class="login-btn" id="openLoginBtn">
+                <i class="fas fa-sign-in-alt"></i> <span id="loginBtnText">Login / Sign Up</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Introduction Section -->
+    <section class="introduction">
+        <div class="container intro-content">
+            <div class="welcome-message">
+                <h2 id="welcomeTitle">Welcome to ARTH</h2>
+                <div class="welcome-hindi" id="welcomeSubtitle">ARTH में आपका स्वागत है</div>
+                <p class="intro-text" id="introText">
+                    Connecting farmers directly with mandis for the best prices. ARTH helps you find the nearest market with highest prices for your crops, calculate your net profit, and make informed decisions.
+                </p>
+            </div>
+            
+            <div class="photo-gallery">
+                <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Farmers in field">
+                    <div class="photo-overlay">
+                        <h3>Direct Market Access</h3>
+                        <p>ARTH connects farmers directly to mandis, eliminating middlemen and ensuring fair prices</p>
+                    </div>
+                </div>
+                <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Fresh fruits">
+                    <div class="photo-overlay">
+                        <h3>Fresh Produce Management</h3>
+                        <p>ARTH helps in timely sale of fresh produce to get maximum value</p>
+                    </div>
+                </div>
+                <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Vegetables market">
+                    <div class="photo-overlay">
+                        <h3>Market Price Transparency</h3>
+                        <p>ARTH provides real-time mandi prices for better decision making</p>
+                    </div>
+                </div>
+                <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1560493676-04071c5f467b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Happy farmer">
+                    <div class="photo-overlay">
+                        <h3>Farmer Empowerment</h3>
+                        <p>ARTH empowers farmers with information and direct market access</p>
+                    </div>
+                </div>
+                <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Wheat harvest">
+                    <div class="photo-overlay">
+                        <h3>Crop Optimization</h3>
+                        <p>ARTH helps in planning harvest timing based on market demand</p>
+                    </div>
+                </div>
+                <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Tomatoes">
+                    <div class="photo-overlay">
+                        <h3>Quality Assessment</h3>
+                        <p>ARTH provides guidance on crop quality standards for better pricing</p>
+                    </div>
+                </div>
+                <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1566281796817-93bc94d7dbd2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Vegetable harvest">
+                    <div class="photo-overlay">
+                        <h3>Harvest Planning</h3>
+                        <p>ARTH assists in planning harvest based on market conditions</p>
+                    </div>
+                </div>
+                <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Farm landscape">
+                    <div class="photo-overlay">
+                        <h3>Agricultural Planning</h3>
+                        <p>ARTH provides market insights for better crop planning</p>
+                    </div>
+                </div>
+                <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1595855759920-86582396756a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Indian farmer">
+                    <div class="photo-overlay">
+                        <h3>Community Building</h3>
+                        <p>ARTH connects farmers to build a stronger agricultural community</p>
+                    </div>
+                </div>
+                <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Fresh produce">
+                    <div class="photo-overlay">
+                        <h3>Supply Chain Efficiency</h3>
+                        <p>ARTH streamlines the supply chain from farm to market</p>
+                    </div>
+                </div>
+                <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1589923188900-85dae523342b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Mango harvest">
+                    <div class="photo-overlay">
+                        <h3>Seasonal Crop Management</h3>
+                        <p>ARTH helps in managing seasonal crops for optimal returns</p>
+                    </div>
+                </div>
+                <div class="photo-item">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Farmers market">
+                    <div class="photo-overlay">
+                        <h3>Market Intelligence</h3>
+                        <p>ARTH provides valuable market intelligence for farmers</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="loginModalTitle">ARTH Login</h2>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="username" id="usernameLabel">Username / Mobile Number</label>
+                        <input type="text" id="username" class="form-control" placeholder="Enter username or mobile number" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password" id="passwordLabel">Password</label>
+                        <input type="password" id="password" class="form-control" placeholder="Enter password" required>
+                    </div>
+                    
+                    <div class="form-buttons">
+                        <button type="button" class="btn btn-secondary" id="closeLoginBtn">
+                            <span id="cancelBtnText">Cancel</span>
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <span id="loginSubmitBtnText">Login</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Details Modal -->
+    <div class="modal" id="userDetailsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="userDetailsTitle">Tell Us More</h2>
+            </div>
+            <div class="modal-body">
+                <form id="userDetailsForm">
+                    <div class="form-group">
+                        <label for="currentLocation" id="locationLabel">Your Current Location</label>
+                        <input type="text" id="currentLocation" class="form-control" placeholder="Enter your village/town" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="reachLocation" id="reachLabel">Where can you reach? (Max distance)</label>
+                        <select id="reachLocation" class="form-control" required>
+                            <option value="" id="selectDistanceOption">Select maximum distance</option>
+                            <option value="20" id="distance20">Within 20 km</option>
+                            <option value="40" id="distance40">Within 40 km</option>
+                            <option value="60" id="distance60">Within 60 km</option>
+                            <option value="80" id="distance80">Within 80 km</option>
+                            <option value="100" id="distance100">Within 100 km</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label id="languageLabel">Select Your Preferred Language</label>
+                        <div class="language-options">
+                            <div class="language-option selected" data-lang="en">English</div>
+                            <div class="language-option" data-lang="hi">हिंदी</div>
+                            <div class="language-option" data-lang="te">తెలుగు</div>
+                            <div class="language-option" data-lang="ta">தமிழ்</div>
+                            <div class="language-option" data-lang="mr">मराठी</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label id="cropTypeLabel">Select Your Crop Type</label>
+                        <div class="crop-selection">
+                            <div class="crop-option selected" data-crop="vegetable">
+                                <div class="crop-icon">
+                                    <i class="fas fa-carrot"></i>
+                                </div>
+                                <h3 id="vegetableText">Vegetables</h3>
+                                <p id="vegetableDesc">All types of vegetables</p>
+                            </div>
+                            <div class="crop-option" data-crop="fruit">
+                                <div class="crop-icon">
+                                    <i class="fas fa-apple-alt"></i>
+                                </div>
+                                <h3 id="fruitText">Fruits</h3>
+                                <p id="fruitDesc">All types of fruits</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cropName" id="cropNameLabel">Enter Your Crop Name</label>
+                        <input type="text" id="cropName" class="form-control" placeholder="e.g., Tomatoes, Apples, Potatoes, etc." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="unitLabel">Select Quantity Unit</label>
+                        <div class="unit-options">
+                            <div class="unit-option selected" data-unit="quintal">
+                                <i class="fas fa-weight-hanging"></i> <span id="quintalText">Quintal</span>
+                            </div>
+                            <div class="unit-option" data-unit="kg">
+                                <i class="fas fa-balance-scale"></i> <span id="kgText">Kilogram (kg)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="quantity" id="quantityLabel">Enter Quantity</label>
+                        <input type="number" id="quantity" class="form-control" placeholder="Enter quantity" min="1" step="0.1" required>
+                    </div>
+                    
+                    <div class="form-buttons">
+                        <button type="button" class="btn btn-secondary" id="backToLoginBtn">
+                            <span id="backBtnText">Back</span>
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <span id="findMandisBtnText">Find Best Mandis</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Section -->
+    <section class="results" id="resultsSection">
+        <div class="container">
+            <div class="results-header">
+                <h2 id="resultsTitle">Top Mandis for Your Crop</h2>
+                <p id="resultsSubtitle">Showing best mandis based on your location and crop type</p>
+            </div>
+            
+            <div class="mandi-cards" id="mandiCards">
+                <!-- Mandi cards will be generated here by JavaScript -->
+            </div>
+
+            <div style="text-align: center; margin-top: 40px;">
+                <button class="btn btn-primary" id="showThankYouBtn" style="padding: 15px 40px; font-size: 1.1rem;">
+                    <span id="continueBtnText">Continue</span> <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Thank You Section with Contact and Rating -->
+    <section class="thankyou-section" id="thankYouSection">
+        <div class="container">
+            <div class="thankyou-content">
+                <div class="thankyou-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h2 class="thankyou-title" id="thankYouTitle">Thank You from ARTH</h2>
+                <p class="thankyou-subtitle" id="thankYouSubtitle">ARTH की ओर से धन्यवाद</p>
+                
+                <p class="thankyou-message" id="thankYouMessage">
+                    We appreciate you choosing ARTH to help you find the best markets for your crops. 
+                    Our mission is to empower farmers and connect them directly to better opportunities. 
+                    Together, we're building a stronger rural economy.
+                </p>
+
+                <!-- Contact Information Section -->
+                <div class="contact-info">
+                    <p class="contact-label" id="contactLabel">Contact Us</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <p class="contact-label">Call Us</p>
+                            <a href="tel:9201356301" class="phone-link">
+                                <i class="fas fa-phone"></i> 9201356301
+                            </a>
+                            <br>
+                            <a href="tel:8305420946" class="phone-link">
+                                <i class="fas fa-phone"></i> 8305420946
+                            </a>
+                            <p class="contact-timing">Available Monday to Friday, 9 AM to 5 PM</p>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <p class="contact-label">Email Us</p>
+                            <a href="mailto:arthforgood@gmail.com" class="email-link">
+                                <i class="fas fa-envelope"></i>
+                                arthforgood@gmail.com
+                            </a>
+                            <p class="contact-timing">We respond within 24 hours</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rating Section -->
+                <div class="rating-section">
+                    <h3 class="rating-title" id="ratingTitle">Rate Your Experience</h3>
+                    <div class="rating-stars" id="ratingStars">
+                        <span class="rating-star" data-value="1"><i class="far fa-star"></i></span>
+                        <span class="rating-star" data-value="2"><i class="far fa-star"></i></span>
+                        <span class="rating-star" data-value="3"><i class="far fa-star"></i></span>
+                        <span class="rating-star" data-value="4"><i class="far fa-star"></i></span>
+                        <span class="rating-star" data-value="5"><i class="far fa-star"></i></span>
+                    </div>
+                    <div class="rating-value" id="ratingValue">Rate your experience</div>
+                    <button class="btn btn-primary" id="submitRatingBtn" style="margin-top: 20px;">
+                        <span id="submitRatingText">Submit Rating</span>
+                    </button>
+                </div>
+
+                <!-- Contact Form Section -->
+                <div class="contact-form-section">
+                    <h3 class="contact-form-title" id="contactFormTitle">Send Us a Message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="contactName" id="contactNameLabel">Your Name</label>
+                            <input type="text" id="contactName" class="form-control" placeholder="Enter your name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactPhone" id="contactPhoneLabel">Your Contact Number</label>
+                            <input type="tel" id="contactPhone" class="form-control" placeholder="Enter your mobile number" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactMessage" id="contactMessageLabel">Your Message</label>
+                            <textarea id="contactMessage" class="form-control" placeholder="Type your message here..." required></textarea>
+                        </div>
+                        
+                        <div class="form-buttons">
+                            <button type="submit" class="btn btn-primary">
+                                <span id="sendMessageText">Send Message</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="thankyou-logo">
+                    <div class="thankyou-logo-icon">
+                        <div class="leaf-stem"></div>
+                        <div class="leaf-logo leaf-left">
+                            <svg viewBox="0 0 100 100">
+                                <path d="M50,20 C30,20 20,40 20,60 C20,80 40,90 50,80 C60,90 80,80 80,60 C80,40 70,20 50,20 Z" 
+                                      fill="#81c784" stroke="#2d5a27" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <div class="leaf-logo leaf-right">
+                            <svg viewBox="0 0 100 100">
+                                <path d="M50,20 C70,20 80,40 80,60 C80,80 60,90 50,80 C40,90 20,80 20,60 C20,40 30,20 50,20 Z" 
+                                      fill="#81c784" stroke="#2d5a27" stroke-width="2"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="thankyou-brand">ARTH BY YUGMA</div>
+                    <p class="thankyou-tagline" id="taglineText">Actionable Rural Trade Hub</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">
+                <div class="leaf-logo leaf-left" style="display: inline-block; margin-right: 5px;">
+                    <svg viewBox="0 0 100 100" width="30" height="30">
+                        <path d="M50,20 C30,20 20,40 20,60 C20,80 40,90 50,80 C60,90 80,80 80,60 C80,40 70,20 50,20 Z" 
+                              fill="#81c784" stroke="#2d5a27" stroke-width="2"/>
+                    </svg>
+                </div>
+                <div class="leaf-logo leaf-right" style="display: inline-block; margin-left: 5px;">
+                    <svg viewBox="0 0 100 100" width="30" height="30">
+                        <path d="M50,20 C70,20 80,40 80,60 C80,80 60,90 50,80 C40,90 20,80 20,60 C20,40 30,20 50,20 Z" 
+                              fill="#81c784" stroke="#2d5a27" stroke-width="2"/>
+                    </svg>
+                </div>
+            </div>
+            <p>ARTH BY YUGMA</p>
+            <p id="footerTagline">Actionable Rural Trade Hub</p>
+            <p id="footerMission">Connecting Farmers to Markets, Empowering Rural India</p>
+            <div class="copyright">
+                <span id="copyrightText">&copy; 2026 ARTH BY YUGMA. All rights reserved.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Comprehensive translation object for all UI elements
+        const translations = {
+            en: {
+                // Header
+                fullForm: "Actionable Rural Trade Hub",
+                loginBtnText: "Login / Sign Up",
+                
+                // Introduction
+                welcomeTitle: "Welcome to ARTH",
+                welcomeSubtitle: "Welcome to ARTH",
+                introText: "Connecting farmers directly with mandis for the best prices. ARTH helps you find the nearest market with highest prices for your crops, calculate your net profit, and make informed decisions.",
+                
+                // Login Modal
+                loginModalTitle: "ARTH Login",
+                usernameLabel: "Username / Mobile Number",
+                passwordLabel: "Password",
+                cancelBtnText: "Cancel",
+                loginSubmitBtnText: "Login",
+                
+                // User Details Modal
+                userDetailsTitle: "Tell Us More",
+                locationLabel: "Your Current Location",
+                reachLabel: "Where can you reach? (Max distance)",
+                languageLabel: "Select Your Preferred Language",
+                cropTypeLabel: "Select Your Crop Type",
+                vegetableText: "Vegetables",
+                vegetableDesc: "All types of vegetables",
+                fruitText: "Fruits",
+                fruitDesc: "All types of fruits",
+                cropNameLabel: "Enter Your Crop Name",
+                unitLabel: "Select Quantity Unit",
+                quintalText: "Quintal",
+                kgText: "Kilogram (kg)",
+                quantityLabel: "Enter Quantity",
+                backBtnText: "Back",
+                findMandisBtnText: "Find Best Mandis",
+                
+                // Select Options
+                selectDistanceOption: "Select maximum distance",
+                distance20: "Within 20 km",
+                distance40: "Within 40 km",
+                distance60: "Within 60 km",
+                distance80: "Within 80 km",
+                distance100: "Within 100 km",
+                
+                // Results Section
+                resultsTitle: "Top Mandis for Your Crop",
+                resultsSubtitle: "Showing best mandis based on your location and crop type",
+                continueBtnText: "Continue",
+                
+                // Mandi Card Labels
+                priceLabel: "Price per",
+                transportLabel: "Transport Cost",
+                revenueLabel: "Total Revenue",
+                netProfitLabel: "Net Profit",
+                bestOptionLabel: "Best Option",
+                kmAwayLabel: "km away",
+                
+                // Thank You Section
+                thankYouTitle: "Thank You from ARTH",
+                thankYouSubtitle: "Thank You from ARTH",
+                thankYouMessage: "We appreciate you choosing ARTH to help you find the best markets for your crops. Our mission is to empower farmers and connect them directly to better opportunities. Together, we're building a stronger rural economy.",
+                contactLabel: "Contact Us",
+                taglineText: "Actionable Rural Trade Hub",
+                
+                // Rating Section
+                ratingTitle: "Rate Your Experience",
+                submitRatingText: "Submit Rating",
+                
+                // Contact Form
+                contactFormTitle: "Send Us a Message",
+                contactNameLabel: "Your Name",
+                contactPhoneLabel: "Your Contact Number",
+                contactMessageLabel: "Your Message",
+                sendMessageText: "Send Message",
+                
+                // Footer
+                footerTagline: "Actionable Rural Trade Hub",
+                footerMission: "Connecting Farmers to Markets, Empowering Rural India",
+                copyrightText: "© 2026 ARTH BY YUGMA. All rights reserved."
+            },
+            hi: {
+                fullForm: "कार्रवाई योग्य ग्रामीण व्यापार केंद्र",
+                loginBtnText: "लॉगिन / साइन अप",
+                welcomeTitle: "ARTH में आपका स्वागत है",
+                welcomeSubtitle: "ARTH में आपका स्वागत है",
+                introText: "किसानों को सीधे मंडियों से जोड़कर सबसे अच्छी कीमतें दिलाना। ARTH आपकी फसलों के लिए सबसे नजदीकी बाजार ढूंढने, आपका शुद्ध लाभ गणना करने और सूचित निर्णय लेने में मदद करता है।",
+                loginModalTitle: "ARTH लॉगिन",
+                usernameLabel: "उपयोगकर्ता नाम / मोबाइल नंबर",
+                passwordLabel: "पासवर्ड",
+                cancelBtnText: "रद्द करें",
+                loginSubmitBtnText: "लॉगिन",
+                userDetailsTitle: "हमें और बताएं",
+                locationLabel: "आपका वर्तमान स्थान",
+                reachLabel: "आप कहाँ तक पहुँच सकते हैं? (अधिकतम दूरी)",
+                languageLabel: "अपनी पसंदीदा भाषा चुनें",
+                cropTypeLabel: "अपनी फसल का प्रकार चुनें",
+                vegetableText: "सब्जियाँ",
+                vegetableDesc: "सभी प्रकार की सब्जियाँ",
+                fruitText: "फल",
+                fruitDesc: "सभी प्रकार के फल",
+                cropNameLabel: "अपनी फसल का नाम दर्ज करें",
+                unitLabel: "मात्रा इकाई चुनें",
+                quintalText: "क्विंटल",
+                kgText: "किलोग्राम (किलो)",
+                quantityLabel: "मात्रा दर्ज करें",
+                backBtnText: "वापस",
+                findMandisBtnText: "सबसे अच्छी मंडियाँ ढूंढें",
+                selectDistanceOption: "अधिकतम दूरी चुनें",
+                distance20: "20 किमी के भीतर",
+                distance40: "40 किमी के भीतर",
+                distance60: "60 किमी के भीतर",
+                distance80: "80 किमी के भीतर",
+                distance100: "100 किमी के भीतर",
+                resultsTitle: "आपकी फसल के लिए शीर्ष मंडियाँ",
+                resultsSubtitle: "आपके स्थान और फसल प्रकार के आधार पर सबसे अच्छी मंडियाँ दिखा रहा है",
+                continueBtnText: "जारी रखें",
+                priceLabel: "प्रति कीमत",
+                transportLabel: "परिवहन लागत",
+                revenueLabel: "कुल राजस्व",
+                netProfitLabel: "शुद्ध लाभ",
+                bestOptionLabel: "सबसे अच्छा विकल्प",
+                kmAwayLabel: "किमी दूर",
+                thankYouTitle: "ARTH की ओर से धन्यवाद",
+                thankYouSubtitle: "धन्यवाद",
+                thankYouMessage: "आपकी फसलों के लिए सर्वोत्तम बाजार खोजने में मदद करने के लिए ARTH को चुनने के लिए हम आपके आभारी हैं। हमारा मिशन किसानों को सशक्त बनाना और उन्हें बेहतर अवसरों से सीधे जोड़ना है। साथ मिलकर, हम एक मजबूत ग्रामीण अर्थव्यवस्था का निर्माण कर रहे हैं।",
+                contactLabel: "हमसे संपर्क करें",
+                taglineText: "कार्रवाई योग्य ग्रामीण व्यापार केंद्र",
+                ratingTitle: "अपने अनुभव को रेट करें",
+                submitRatingText: "रेटिंग सबमिट करें",
+                contactFormTitle: "हमें एक संदेश भेजें",
+                contactNameLabel: "आपका नाम",
+                contactPhoneLabel: "आपका संपर्क नंबर",
+                contactMessageLabel: "आपका संदेश",
+                sendMessageText: "संदेश भेजें",
+                footerTagline: "कार्रवाई योग्य ग्रामीण व्यापार केंद्र",
+                footerMission: "किसानों को बाजारों से जोड़ना, ग्रामीण भारत को सशक्त बनाना",
+                copyrightText: "© 2026 ARTH BY YUGMA. सर्वाधिकार सुरक्षित।"
+            },
+            te: {
+                fullForm: "చర్యాత్మక గ్రామీణ వాణిజ్య కేంద్రం",
+                loginBtnText: "లాగిన్ / సైన్ అప్",
+                welcomeTitle: "ARTH కి స్వాగతం",
+                welcomeSubtitle: "ARTH కి స్వాగతం",
+                introText: "రైతులను నేరుగా మండీలతో కనెక్ట్ చేస్తూ ఉత్తమ ధరలు పొందేలా చేయడం. ARTH మీరు మీ పంటలకు దగ్గరి మార్కెట్‌ను, అత్యధిక ధరలను కనుగొనడంలో, మీ నికర లాభాన్ని లెక్కించడంలో మరియు సమాచారంతో కూడిన నిర్ణయాలు తీసుకోవడంలో సహాయపడుతుంది.",
+                loginModalTitle: "ARTH లాగిన్",
+                usernameLabel: "యూజర్‌నేమ్ / మొబైల్ నంబర్",
+                passwordLabel: "పాస్‌వర్డ్",
+                cancelBtnText: "రద్దు చేయి",
+                loginSubmitBtnText: "లాగిన్",
+                userDetailsTitle: "మాకు మరింత తెలపండి",
+                locationLabel: "మీ ప్రస్తుత స్థానం",
+                reachLabel: "మీరు ఎంత దూరం వెళ్ళగలరు? (గరిష్ట దూరం)",
+                languageLabel: "మీకు ఇష్టమైన భాషను ఎంచుకోండి",
+                cropTypeLabel: "మీ పంట రకాన్ని ఎంచుకోండి",
+                vegetableText: "కూరగాయలు",
+                vegetableDesc: "అన్ని రకాల కూరగాయలు",
+                fruitText: "పండ్లు",
+                fruitDesc: "అన్ని రకాల పండ్లు",
+                cropNameLabel: "మీ పంట పేరును నమోదు చేయండి",
+                unitLabel: "పరిమాణ యూనిట్ ఎంచుకోండి",
+                quintalText: "క్వింటల్",
+                kgText: "కిలోగ్రామ్ (కేజీ)",
+                quantityLabel: "పరిమాణం నమోదు చేయండి",
+                backBtnText: "వెనుకకు",
+                findMandisBtnText: "ఉత్తమ మండీలను కనుగొనండి",
+                selectDistanceOption: "గరిష్ట దూరాన్ని ఎంచుకోండి",
+                distance20: "20 కి.మీ లోపు",
+                distance40: "40 కి.మీ లోపు",
+                distance60: "60 కి.మీ లోపు",
+                distance80: "80 కి.మీ లోపు",
+                distance100: "100 కి.మీ లోపు",
+                resultsTitle: "మీ పంటకు ఉత్తమ మండీలు",
+                resultsSubtitle: "మీ స్థానం మరియు పంట రకం ఆధారంగా ఉత్తమ మండీలను చూపిస్తోంది",
+                continueBtnText: "కొనసాగించు",
+                priceLabel: "ప్రతి ధర",
+                transportLabel: "రవాణా ఖర్చు",
+                revenueLabel: "మొత్తం ఆదాయం",
+                netProfitLabel: "నికర లాభం",
+                bestOptionLabel: "ఉత్తమ ఎంపిక",
+                kmAwayLabel: "కి.మీ దూరంలో",
+                thankYouTitle: "ARTH నుండి ధన్యవాదాలు",
+                thankYouSubtitle: "ధన్యవాదాలు",
+                thankYouMessage: "మీ పంటలకు ఉత్తమ మార్కెట్‌లను కనుగొనడంలో సహాయం చేయడానికి ARTHని ఎంచుకున్నందుకు మేము అభినందిస్తున్నాము. రైతులను శక్తివంతం చేయడం మరియు మెరుగైన అవకాశాలతో నేరుగా కనెక్ట్ చేయడం మా లక్ష్యం. కలిసి, మేము బలమైన గ్రామీణ ఆర్థిక వ్యవస్థను నిర్మిస్తున్నాము.",
+                contactLabel: "మమ్మల్ని సంప్రదించండి",
+                taglineText: "చర్యాత్మక గ్రామీణ వాణిజ్య కేంద్రం",
+                ratingTitle: "మీ అనుభవాన్ని రేట్ చేయండి",
+                submitRatingText: "రేటింగ్ సబ్మిట్ చేయండి",
+                contactFormTitle: "మాకు సందేశం పంపండి",
+                contactNameLabel: "మీ పేరు",
+                contactPhoneLabel: "మీ సంప్రదింపు నంబర్",
+                contactMessageLabel: "మీ సందేశం",
+                sendMessageText: "సందేశం పంపండి",
+                footerTagline: "చర్యాత్మక గ్రామీణ వాణిజ్య కేంద్రం",
+                footerMission: "రైతులను మార్కెట్లకు కనెక్ట్ చేయడం, గ్రామీణ భారతదేశాన్ని సాధికారికం చేయడం",
+                copyrightText: "© 2026 ARTH BY YUGMA. అన్ని హక్కులు ప్రత్యేకించబడినవి."
+            },
+            ta: {
+                fullForm: "செயல்படு கிராமப்புற வணிக மையம்",
+                loginBtnText: "உள்நுழை / பதிவு",
+                welcomeTitle: "ARTH க்கு வரவேற்கிறோம்",
+                welcomeSubtitle: "ARTH க்கு வரவேற்கிறோம்",
+                introText: "விவசாயிகளை நேரடியாக மண்டிகளுடன் இணைத்து சிறந்த விலைகளைப் பெறுவது. ARTH உங்கள் பயிர்களுக்கு அருகிலுள்ள சந்தையைக் கண்டறிய, உங்கள் நிகர லாபத்தைக் கணக்கிட்டு, தகவலறிந்த முடிவுகளை எடுக்க உதவுகிறது.",
+                loginModalTitle: "ARTH உள்நுழைவு",
+                usernameLabel: "பயனர்பெயர் / மொபைல் எண்",
+                passwordLabel: "கடவுச்சொல்",
+                cancelBtnText: "ரத்து செய்",
+                loginSubmitBtnText: "உள்நுழை",
+                userDetailsTitle: "மேலும் எங்களிடம் சொல்லுங்கள்",
+                locationLabel: "உங்கள் தற்போதைய இடம்",
+                reachLabel: "நீங்கள் எங்கு செல்ல முடியும்? (அதிகபட்ச தூரம்)",
+                languageLabel: "உங்களுக்கு விருப்பமான மொழியைத் தேர்ந்தெடுக்கவும்",
+                cropTypeLabel: "உங்கள் பயிர் வகையைத் தேர்ந்தெடுக்கவும்",
+                vegetableText: "காய்கறிகள்",
+                vegetableDesc: "அனைத்து வகையான காய்கறிகள்",
+                fruitText: "பழங்கள்",
+                fruitDesc: "அனைத்து வகையான பழங்கள்",
+                cropNameLabel: "உங்கள் பயிரின் பெயரை உள்ளிடவும்",
+                unitLabel: "அளவு அலகைத் தேர்ந்தெடுக்கவும்",
+                quintalText: "குவிண்டால்",
+                kgText: "கிலோகிராம் (கிலோ)",
+                quantityLabel: "அளவை உள்ளிடவும்",
+                backBtnText: "பின்னோக்கி",
+                findMandisBtnText: "சிறந்த மண்டிகளைக் கண்டறியவும்",
+                selectDistanceOption: "அதிகபட்ச தூரத்தைத் தேர்ந்தெடுக்கவும்",
+                distance20: "20 கிமீக்குள்",
+                distance40: "40 கிமீக்குள்",
+                distance60: "60 கிமீக்குள்",
+                distance80: "80 கிமீக்குள்",
+                distance100: "100 கிமீக்குள்",
+                resultsTitle: "உங்கள் பயிருக்கான சிறந்த மண்டிகள்",
+                resultsSubtitle: "உங்கள் இடம் மற்றும் பயிர் வகையின் அடிப்படையில் சிறந்த மண்டிகளைக் காட்டுகிறது",
+                continueBtnText: "தொடரவும்",
+                priceLabel: "ஒரு விலை",
+                transportLabel: "போக்குவரத்து செலவு",
+                revenueLabel: "மொத்த வருவாய்",
+                netProfitLabel: "நிகர லாபம்",
+                bestOptionLabel: "சிறந்த விருப்பம்",
+                kmAwayLabel: "கிமீ தொலைவில்",
+                thankYouTitle: "ARTH இன் நன்றி",
+                thankYouSubtitle: "நன்றி",
+                thankYouMessage: "உங்கள் பயிர்களுக்கு சிறந்த சந்தைகளைக் கண்டறிய உதவ ARTHஐ தேர்ந்தெடுத்ததற்கு நன்றி. விவசாயிகளுக்கு அதிகாரம் அளிப்பது மற்றும் சிறந்த வாய்ப்புகளுடன் நேரடியாக இணைப்பது எங்கள் நோக்கம். ஒன்றாக, நாங்கள் வலுவான கிராமப்புற பொருளாதாரத்தை உருவாக்குகிறோம்.",
+                contactLabel: "எந்தவொரு கேள்விகளுக்காகவும் அல்லது ஆதரவுக்காகவும், எங்களை அடையவும்:",
+                taglineText: "செயல்படு கிராமப்புற வணிக மையம்",
+                footerTagline: "செயல்படு கிராமப்புற வணிக மையம்",
+                footerMission: "விவசாயிகளை சந்தைகளுடன் இணைத்தல், கிராமப்புற இந்தியாவை மேம்படுத்துதல்",
+                copyrightText: "© 2026 ARTH BY YUGMA. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை."
+            },
+            mr: {
+                fullForm: "कृतीयोग्य ग्रामीण व्यापार केंद्र",
+                loginBtnText: "लॉगिन / साइन अप",
+                welcomeTitle: "ARTH मध्ये आपले स्वागत आहे",
+                welcomeSubtitle: "ARTH मध्ये आपले स्वागत आहे",
+                introText: "शेतकऱ्यांना थेट मंडींशी जोडून सर्वोत्तम किंमती मिळवणे. ARTH आपल्याला आपल्या पिकांसाठी जवळचे बाजारपेठ शोधण्यात, आपला निव्वळ नफा मोजण्यात आणि माहितीपूर्ण निर्णय घेण्यात मदत करते.",
+                loginModalTitle: "ARTH लॉगिन",
+                usernameLabel: "वापरकर्तानाव / मोबाईल नंबर",
+                passwordLabel: "पासवर्ड",
+                cancelBtnText: "रद्द करा",
+                loginSubmitBtnText: "लॉगिन",
+                userDetailsTitle: "आम्हाला अधिक सांगा",
+                locationLabel: "आपले सध्याचे स्थान",
+                reachLabel: "आपण कुठे पोहोचू शकता? (कमाल अंतर)",
+                languageLabel: "आपली पसंतीची भाषा निवडा",
+                cropTypeLabel: "आपली पीक प्रकार निवडा",
+                vegetableText: "भाज्या",
+                vegetableDesc: "सर्व प्रकारच्या भाज्या",
+                fruitText: "फळे",
+                fruitDesc: "सर्व प्रकारची फळे",
+                cropNameLabel: "आपल्या पिकाचे नाम प्रविष्ट करा",
+                unitLabel: "प्रमाण युनिट निवडा",
+                quintalText: "क्विंटल",
+                kgText: "किलोग्रॅम (किलो)",
+                quantityLabel: "प्रमाण प्रविष्ट करा",
+                backBtnText: "मागे",
+                findMandisBtnText: "सर्वोत्तम मंडी शोधा",
+                selectDistanceOption: "कमाल अंतर निवडा",
+                distance20: "२० किमी मध्ये",
+                distance40: "४० किमी मध्ये",
+                distance60: "६० किमी मध्ये",
+                distance80: "८० किमी मध्ये",
+                distance100: "१०० किमी मध्ये",
+                resultsTitle: "आपल्या पिकासाठी शीर्ष मंडी",
+                resultsSubtitle: "आपल्या स्थान आणि पीक प्रकारावर आधारित सर्वोत्तम मंडी दाखवत आहे",
+                continueBtnText: "सुरु ठेवा",
+                priceLabel: "दर प्रति",
+                transportLabel: "वाहतूक खर्च",
+                revenueLabel: "एकूण महसूल",
+                netProfitLabel: "निव्वळ नफा",
+                bestOptionLabel: "सर्वोत्तम पर्याय",
+                kmAwayLabel: "किमी दूर",
+                thankYouTitle: "ARTH कडून धन्यवाद",
+                thankYouSubtitle: "धन्यवाद",
+                thankYouMessage: "तुमच्या पिकांसाठी सर्वोत्तम बाजार शोधण्यासाठी ARTH निवडल्याबद्दल आम्ही कृतज्ञ आहोत. शेतकऱ्यांना सक्षम बनवणे आणि त्यांना चांगल्या संधींशी थेट जोडणे हे आमचे ध्येय आहे. एकत्रितपणे, आम्ही एक मजबूत ग्रामीण अर्थव्यवस्था तयार करत आहोत.",
+                contactLabel: "कोणत्याही प्रश्न किंवा समर्थनासाठी, आमच्याशी संपर्क साधा:",
+                taglineText: "कृतीयोग्य ग्रामीण व्यापार केंद्र",
+                footerTagline: "कृतीयोग्य ग्रामीण व्यापार केंद्र",
+                footerMission: "शेतकऱ्यांना बाजारपेठेशी जोडणे, ग्रामीण भारताला सक्षम करणे",
+                copyrightText: "© 2026 ARTH BY YUGMA. सर्व हक्क राखीव."
+            }
+        };
+
+        // Default language
+        let currentLanguage = 'en';
+
+        // DOM Elements
+        const openLoginBtn = document.getElementById('openLoginBtn');
+        const closeLoginBtn = document.getElementById('closeLoginBtn');
+        const backToLoginBtn = document.getElementById('backToLoginBtn');
+        const loginModal = document.getElementById('loginModal');
+        const userDetailsModal = document.getElementById('userDetailsModal');
+        const loginForm = document.getElementById('loginForm');
+        const userDetailsForm = document.getElementById('userDetailsForm');
+        const resultsSection = document.getElementById('resultsSection');
+        const thankYouSection = document.getElementById('thankYouSection');
+        const mandiCards = document.getElementById('mandiCards');
+        const resultsTitle = document.getElementById('resultsTitle');
+        const resultsSubtitle = document.getElementById('resultsSubtitle');
+        const showThankYouBtn = document.getElementById('showThankYouBtn');
+        
+        // Language selection
+        const languageOptions = document.querySelectorAll('.language-option');
+        let selectedLanguage = 'en';
+        
+        // Crop selection
+        const cropOptions = document.querySelectorAll('.crop-option');
+        let selectedCrop = 'vegetable';
+
+        // Unit selection
+        const unitOptions = document.querySelectorAll('.unit-option');
+        let selectedUnit = 'quintal';
+
+        // Rating system variables
+        let userRating = 0;
+
+        // Function to update UI with selected language
+        function updateLanguage(lang) {
+            const translation = translations[lang] || translations.en;
+            selectedLanguage = lang;
+            currentLanguage = lang;
+            
+            // Update all text elements
+            document.querySelectorAll('[id]').forEach(element => {
+                const id = element.id;
+                if (translation[id]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'SELECT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = translation[id];
+                    } else {
+                        element.textContent = translation[id];
+                    }
+                }
+            });
+
+            // Update specific elements
+            document.getElementById('fullForm').textContent = translation.fullForm;
+            document.getElementById('loginBtnText').textContent = translation.loginBtnText;
+            document.getElementById('welcomeTitle').textContent = translation.welcomeTitle;
+            document.getElementById('introText').textContent = translation.introText;
+            document.getElementById('loginModalTitle').textContent = translation.loginModalTitle;
+            document.getElementById('usernameLabel').textContent = translation.usernameLabel;
+            document.getElementById('passwordLabel').textContent = translation.passwordLabel;
+            document.getElementById('cancelBtnText').textContent = translation.cancelBtnText;
+            document.getElementById('loginSubmitBtnText').textContent = translation.loginSubmitBtnText;
+            document.getElementById('userDetailsTitle').textContent = translation.userDetailsTitle;
+            document.getElementById('locationLabel').textContent = translation.locationLabel;
+            document.getElementById('reachLabel').textContent = translation.reachLabel;
+            document.getElementById('languageLabel').textContent = translation.languageLabel;
+            document.getElementById('cropTypeLabel').textContent = translation.cropTypeLabel;
+            document.getElementById('vegetableText').textContent = translation.vegetableText;
+            document.getElementById('vegetableDesc').textContent = translation.vegetableDesc;
+            document.getElementById('fruitText').textContent = translation.fruitText;
+            document.getElementById('fruitDesc').textContent = translation.fruitDesc;
+            document.getElementById('cropNameLabel').textContent = translation.cropNameLabel;
+            document.getElementById('unitLabel').textContent = translation.unitLabel;
+            document.getElementById('quintalText').textContent = translation.quintalText;
+            document.getElementById('kgText').textContent = translation.kgText;
+            document.getElementById('quantityLabel').textContent = translation.quantityLabel;
+            document.getElementById('backBtnText').textContent = translation.backBtnText;
+            document.getElementById('findMandisBtnText').textContent = translation.findMandisBtnText;
+            document.getElementById('selectDistanceOption').textContent = translation.selectDistanceOption;
+            document.getElementById('distance20').textContent = translation.distance20;
+            document.getElementById('distance40').textContent = translation.distance40;
+            document.getElementById('distance60').textContent = translation.distance60;
+            document.getElementById('distance80').textContent = translation.distance80;
+            document.getElementById('distance100').textContent = translation.distance100;
+            document.getElementById('resultsTitle').textContent = translation.resultsTitle;
+            document.getElementById('resultsSubtitle').textContent = translation.resultsSubtitle;
+            document.getElementById('continueBtnText').textContent = translation.continueBtnText;
+            document.getElementById('thankYouTitle').textContent = translation.thankYouTitle;
+            document.getElementById('thankYouMessage').textContent = translation.thankYouMessage;
+            document.getElementById('contactLabel').textContent = translation.contactLabel;
+            document.getElementById('taglineText').textContent = translation.taglineText;
+            document.getElementById('ratingTitle').textContent = translation.ratingTitle;
+            document.getElementById('submitRatingText').textContent = translation.submitRatingText;
+            document.getElementById('contactFormTitle').textContent = translation.contactFormTitle;
+            document.getElementById('contactNameLabel').textContent = translation.contactNameLabel;
+            document.getElementById('contactPhoneLabel').textContent = translation.contactPhoneLabel;
+            document.getElementById('contactMessageLabel').textContent = translation.contactMessageLabel;
+            document.getElementById('sendMessageText').textContent = translation.sendMessageText;
+            document.getElementById('footerTagline').textContent = translation.footerTagline;
+            document.getElementById('footerMission').textContent = translation.footerMission;
+            document.getElementById('copyrightText').textContent = translation.copyrightText;
+
+            // Update placeholders
+            document.getElementById('cropName').placeholder = "e.g., Tomatoes, Apples, Potatoes, etc.";
+            document.getElementById('username').placeholder = "Enter username or mobile number";
+            document.getElementById('password').placeholder = "Enter password";
+            document.getElementById('currentLocation').placeholder = "Enter your village/town";
+            document.getElementById('quantity').placeholder = "Enter quantity";
+            document.getElementById('contactName').placeholder = "Enter your name";
+            document.getElementById('contactPhone').placeholder = "Enter your mobile number";
+            document.getElementById('contactMessage').placeholder = "Type your message here...";
+        }
+
+        // Modal functions
+        openLoginBtn.addEventListener('click', () => {
+            loginModal.style.display = 'flex';
+        });
+
+        closeLoginBtn.addEventListener('click', () => {
+            loginModal.style.display = 'none';
+        });
+
+        backToLoginBtn.addEventListener('click', () => {
+            userDetailsModal.style.display = 'none';
+            loginModal.style.display = 'flex';
+        });
+
+        // Login form submission
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get login credentials
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Simple validation
+            if (username && password) {
+                // Hide login modal
+                loginModal.style.display = 'none';
+                
+                // Show user details modal
+                userDetailsModal.style.display = 'flex';
+                
+                // Hide login button after successful login
+                openLoginBtn.style.display = 'none';
+            }
+        });
+
+        // Language option selection
+        languageOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                languageOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                const lang = option.dataset.lang;
+                selectedLanguage = lang;
+                updateLanguage(lang);
+            });
+        });
+
+        // Crop option selection
+        cropOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                cropOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                selectedCrop = option.dataset.crop;
+            });
+        });
+
+        // Unit option selection
+        unitOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                unitOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                selectedUnit = option.dataset.unit;
+            });
+        });
+
+        // User details form submission
+        userDetailsForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const location = document.getElementById('currentLocation').value;
+            const maxDistance = document.getElementById('reachLocation').value;
+            const cropName = document.getElementById('cropName').value;
+            const quantity = document.getElementById('quantity').value;
+            
+            // Hide modal
+            userDetailsModal.style.display = 'none';
+            
+            // Show results
+            displayResults(location, maxDistance, cropName, quantity, selectedUnit);
+        });
+
+        // Rating system
+        const ratingStars = document.querySelectorAll('.rating-star');
+        const ratingValue = document.getElementById('ratingValue');
+        const submitRatingBtn = document.getElementById('submitRatingBtn');
+
+        ratingStars.forEach(star => {
+            star.addEventListener('click', () => {
+                const value = parseInt(star.dataset.value);
+                userRating = value;
+                
+                // Update stars display
+                ratingStars.forEach((s, index) => {
+                    if (index < value) {
+                        s.innerHTML = '<i class="fas fa-star"></i>';
+                        s.classList.add('active');
+                    } else {
+                        s.innerHTML = '<i class="far fa-star"></i>';
+                        s.classList.remove('active');
+                    }
+                });
+                
+                // Update rating text
+                const ratingTexts = {
+                    en: ["Poor", "Fair", "Good", "Very Good", "Excellent"],
+                    hi: ["खराब", "ठीक", "अच्छा", "बहुत अच्छा", "उत्कृष्ट"],
+                    te: ["చెత్త", "సరే", "మంచి", "చాలా మంచి", "అద్భుతం"],
+                    ta: ["மோசமான", "நியாயமான", "நல்ல", "மிக நல்ல", "சிறந்த"],
+                    mr: ["खराब", "योग्य", "चांगले", "अतिशय चांगले", "उत्कृष्ट"]
+                };
+                
+                const lang = selectedLanguage;
+                const texts = ratingTexts[lang] || ratingTexts.en;
+                ratingValue.textContent = `${texts[value - 1]} (${value}/5)`;
+            });
+        });
+
+        submitRatingBtn.addEventListener('click', () => {
+            if (userRating > 0) {
+                alert(`Thank you for your ${userRating}-star rating!`);
+                // In a real app, you would send this rating to your server
+                userRating = 0;
+                ratingStars.forEach(star => {
+                    star.innerHTML = '<i class="far fa-star"></i>';
+                    star.classList.remove('active');
+                });
+                ratingValue.textContent = 'Thank you for your feedback!';
+            } else {
+                alert('Please select a rating first.');
+            }
+        });
+
+        // Contact form submission
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('contactName').value;
+            const phone = document.getElementById('contactPhone').value;
+            const message = document.getElementById('contactMessage').value;
+            
+            // Simple validation
+            if (name && phone && message) {
+                alert('Thank you for your message! We will contact you soon.');
+                contactForm.reset();
+                
+                // In a real app, you would send this data to your server
+                console.log('Contact Form Submitted:', { name, phone, message });
+            }
+        });
+
+        // Show Thank You page
+        showThankYouBtn.addEventListener('click', () => {
+            resultsSection.style.display = 'none';
+            thankYouSection.style.display = 'block';
+            
+            // Update thank you page content based on selected language
+            const translation = translations[selectedLanguage] || translations.en;
+            document.getElementById('thankYouTitle').textContent = translation.thankYouTitle;
+            document.getElementById('thankYouSubtitle').textContent = translation.thankYouSubtitle;
+            document.getElementById('thankYouMessage').textContent = translation.thankYouMessage;
+            
+            // Scroll to thank you section
+            thankYouSection.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Display results function
+        function displayResults(location, maxDistance, cropName, quantity, unit) {
+            // Sample data - in real app, this would come from backend
+            const mandis = [
+                {
+                    name: 'Central Mandi - City Center',
+                    distance: 15,
+                    price: 45,
+                    transportCost: 200,
+                    profit: 4300,
+                    best: true
+                },
+                {
+                    name: 'Green Valley Market',
+                    distance: 25,
+                    price: 42,
+                    transportCost: 350,
+                    profit: 3850,
+                    best: false
+                },
+                {
+                    name: 'Farmers Hub - North District',
+                    distance: 35,
+                    price: 40,
+                    transportCost: 450,
+                    profit: 3550,
+                    best: false
+                }
+            ];
+
+            // Get current translation
+            const translation = translations[selectedLanguage] || translations.en;
+
+            // Clear previous results
+            mandiCards.innerHTML = '';
+
+            // Update results header
+            resultsTitle.textContent = `${translation.resultsTitle}`;
+            resultsSubtitle.textContent = `${translation.resultsSubtitle} | ${location} | ${quantity} ${unit}`;
+
+            // Generate mandi cards
+            mandis.forEach(mandi => {
+                const card = document.createElement('div');
+                card.className = `mandi-card ${mandi.best ? 'best' : ''}`;
+                
+                card.innerHTML = `
+                    ${mandi.best ? `<div class="best-tag">${translation.bestOptionLabel}</div>` : ''}
+                    <div class="mandi-header">
+                        <h3>${mandi.name}</h3>
+                        <p class="distance"><i class="fas fa-map-marker-alt"></i> ${mandi.distance} ${translation.kmAwayLabel}</p>
+                    </div>
+                    <div class="mandi-body">
+                        <div class="mandi-info">
+                            <div class="mandi-info-item">
+                                <span>${translation.priceLabel} ${unit}:</span>
+                                <strong>₹${mandi.price}</strong>
+                            </div>
+                            <div class="mandi-info-item">
+                                <span>${translation.transportLabel}:</span>
+                                <strong>₹${mandi.transportCost}</strong>
+                            </div>
+                            <div class="mandi-info-item">
+                                <span>${translation.revenueLabel}:</span>
+                                <strong>₹${(mandi.price * quantity).toFixed(2)}</strong>
+                            </div>
+                        </div>
+                        <div class="profit">
+                            ${translation.netProfitLabel}: ₹${mandi.profit}
+                        </div>
+                    </div>
+                `;
+                
+                mandiCards.appendChild(card);
+            });
+
+            // Show results section
+            resultsSection.style.display = 'block';
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Close modals when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.style.display = 'none';
+            }
+            if (e.target === userDetailsModal) {
+                userDetailsModal.style.display = 'none';
+            }
+        });
+
+        // Initialize with English
+        updateLanguage('en');
+    </script>
+</body>
+</html>
+
+           
+    
